@@ -1,6 +1,5 @@
 package com.devmedia.controller;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,44 +13,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.devmedia.model.Cliente;
-
 @Controller
 public class ClienteController {
 
-    @RequestMapping(value = "/cliente", method = RequestMethod.GET)
+    @RequestMapping(value = "/home")
     public ModelAndView cliente() {
-        return new ModelAndView("cliente", "command", new Cliente());
+        return new ModelAndView("/home/cliente");
     }
 
-    @RequestMapping(value = "/addCliente", method = RequestMethod.POST)
-    public String adicionarCliente(
-            @ModelAttribute("SpringWeb") Cliente cliente, ModelMap model,
-            HttpServletRequest request) {
+    @RequestMapping(value = "/addCliente", method = RequestMethod.GET)
+    public ModelAndView adicionarCliente(
+            @ModelAttribute("MenegassoBank") Cliente cliente, ModelMap model, HttpServletRequest request) {
 
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-
-        model.addAttribute("nome", cliente.getNome());
-        model.addAttribute("cpf", cliente.getCpf());
-        model.addAttribute("descricao", cliente.getDescricao());
-        model.addAttribute("telefone", cliente.getTelefone());
-        model.addAttribute("endereco", cliente.getEndereco());
-        model.addAttribute("rg", cliente.getRg());
-        model.addAttribute("salario", cliente.getSalario());
-        model.addAttribute("dataNascimento", sdf.format(cliente
-                .getDataNascimento()));
-        model.addAttribute("profissao", cliente.getProfissao());
-
-
+        model.addAttribute("account",cliente.getAccount());
+        model.addAttribute("extract",cliente.getExtract());
         List<Cliente> clientes = (List<Cliente>)
                 request.getSession().getAttribute("clientes");
         if (clientes == null) {
-            clientes = new ArrayList<Cliente>();
+            clientes = new ArrayList<>();
         }
         clientes.add(cliente);
         request.getSession().setAttribute("clientes", clientes);
 
-        return "exibeCliente";
+        return new ModelAndView("/home/addCliente");
     }
 
     @RequestMapping(value = "/listaClientes", method = RequestMethod.GET)
@@ -64,7 +48,7 @@ public class ClienteController {
         model.addAttribute("clientes", clientes);
 
 
-        return "listaClientes";
+        return "cliente";
     }
 
 
