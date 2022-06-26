@@ -33,6 +33,7 @@ public class WebServletHome extends HttpServlet {
 
         response.setContentType("text/html");
         response.getWriter();
-        request.setAttribute("/login",new ClienteController().login());
+        request.setAttribute("/testLogin",new ClienteController().testLogin(request,response));
+        request.setAttribute("/logout", new ClienteController().logout());
     }
 }
