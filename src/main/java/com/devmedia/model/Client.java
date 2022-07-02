@@ -5,7 +5,7 @@ import com.devmedia.negocio.extract.ExtractImpl;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Cliente {
+public class Client {
 
     private AccountImpl account;
     private ExtractImpl extract;

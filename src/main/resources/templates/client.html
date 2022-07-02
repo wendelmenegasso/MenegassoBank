@@ -1,0 +1,60 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastro de Cliente</title>
+</head>
+<body>
+<h2>Formulário de Cadastro de Cliente</h2>
+<form method="GET" path="/home" action="/addClient">
+   <table>
+    <tr>
+        <td><label path="account">Nome></label></td>
+        <td><input name="name" /></td>
+    </tr>
+       <tr>
+           <td><label path="account">Segundo Nome:</label></td>
+           <td><input name="secondName" /></td>
+       </tr>
+    <tr>
+        <td><label path="extract">CPF:</label></td>
+        <td><input name="cpf" /></td>
+    </tr>
+       <tr>
+           <td><label path="account">Rua:</label></td>
+           <td><input name="street" /></td>
+       </tr>
+       <tr>
+           <td><label path="extract">CEP:</label></td>
+           <td><input name="cep" /></td>
+       </tr>
+       <tr>
+           <td><label path="extract">Cnameade:</label></td>
+           <td><input name="city" /></td>
+       </tr>
+       <tr>
+           <td><label path="account">Profissão:</label></td>
+           <td><input name="job" /></td>
+       </tr>
+       <tr>
+           <td><label path="extract">Renda:</label></td>
+           <td><input name="salary" /></td>
+       </tr>
+       <tr>
+           <td><label path="account">Pais:</label></td>
+           <td><input name="country" /></td>
+       </tr>
+       <tr>
+           <td><label path="extract">RG:</label></td>
+           <td><input name="rg" /></td>
+       </tr>
+    <tr>
+        <td colspan="2">
+            <input type="submit" value="Submit"/>
+        </td>
+    </tr>
+</table>
+</form>
+<%out.println("OLA");%>
+<a href="/listaClientes">Lista</a>
+</body>
+</html>

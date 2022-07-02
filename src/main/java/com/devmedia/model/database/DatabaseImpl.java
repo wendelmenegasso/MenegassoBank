@@ -1,8 +1,10 @@
 package com.devmedia.model.database;
 
 import com.devmedia.model.login.LoginDatabase;
+import redis.clients.jedis.HostAndPort;
+import redis.clients.jedis.Jedis;
 
-public class DatabaseImpl implements Database {
+public class DatabaseImpl implements Database{
 
     private LoginDatabase loginDatabase;
 
@@ -12,15 +14,10 @@ public class DatabaseImpl implements Database {
     }
 
     @Override
-    public boolean connect(String user, String password) throws DatabaseException {
-        loginDatabase = new LoginDatabase();
-        if(loginDatabase.verifyCredentials(user,password)){
-            System.out.println("Correct password");
-            return true;
-        }
-        else{
-            throw new DatabaseException("Wrong password");
-        }
+    public Jedis connect(String host, int port) throws DatabaseException {
+        HostAndPort hostAndPort = new HostAndPort(host,port);
+        Jedis jedis = new Jedis(hostAndPort);
+        return jedis;
     }
 
     @Override
