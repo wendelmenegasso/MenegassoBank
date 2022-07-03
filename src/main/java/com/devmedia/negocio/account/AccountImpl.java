@@ -2,10 +2,14 @@ package com.devmedia.negocio.account;
 
 import com.devmedia.model.database.DatabaseException;
 import com.devmedia.model.database.DatabaseImpl;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisCluster;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AccountImpl implements Account{
 
@@ -13,11 +17,14 @@ public class AccountImpl implements Account{
     private String secondName;
     private String cpf;
     private String rg;
-    private String salary;
+    private BigDecimal salary;
     private String street;
     private String cep;
     private String city;
     private String country;
+
+    private static final Logger logger = LogManager.getLogger(AccountImpl.class);
+
 
     @Override
     public BigDecimal getValue(String accountNumber, String accountAgency) {
@@ -42,16 +49,29 @@ public class AccountImpl implements Account{
                                  String country) {
         DatabaseImpl database = new DatabaseImpl();
         try {
-            Jedis jedis = database.connect("127.0.0.1",32771);
-            this.firstName = jedis.set("firstName",firstName);
-            this.secondName = jedis.set("secondName",secondName);
-            this.cpf = jedis.set("cpf",cpf);
-            this.rg = jedis.set("rg",rg);
-            this.salary = jedis.set("salary",salary.toString());
-            this.street = jedis.set("street",street);
-            this.cep = jedis.set("cep",cep);
-            this.city = jedis.set("city",city);
-            this.country = jedis.set("country",country);
+            Jedis jedis = database.connect("127.0.0.1",32768);
+            List<AccountImpl> accountList = new ArrayList<>();
+            this.firstName = firstName;
+            this.secondName = secondName;
+            this.cpf = cpf;
+            this.rg = rg;
+            this.salary = salary;
+            this.street = street;
+            this.cep = cep;
+            this.city = city;
+            this.country = country;
+            AccountImpl account = this;
+            accountList.add(account);
+            jedis.set("firstName",firstName);
+            jedis.set("secondName",secondName);
+            jedis.set("cpf",cpf);
+            jedis.set("rg",rg);
+            jedis.set("salary",salary.toString());
+            jedis.set("street",street);
+            jedis.set("cep",cep);
+            jedis.set("city",city);
+            jedis.set("country",country);
+            logger.debug("Gravado com sucesso : {}", accountList.get(0)::toString);
         } catch (DatabaseException e) {
             e.printStackTrace();
         }
