@@ -1,27 +1,26 @@
 package com.devmedia.model.database;
 
-import com.devmedia.model.login.LoginDatabase;
-import redis.clients.jedis.HostAndPort;
-import redis.clients.jedis.Jedis;
+import com.devmedia.negocio.account.AccountValuesImpl;
+import java.util.Optional;
 
 public class DatabaseImpl implements Database{
 
-    private LoginDatabase loginDatabase;
 
     @Override
-    public boolean isConnected(String user, String password) {
-        return false;
+    public <S extends AccountValuesImpl> S save(S entity) {
+        return entity;
     }
+
 
     @Override
-    public Jedis connect(String host, int port) throws DatabaseException {
-        HostAndPort hostAndPort = new HostAndPort(host,port);
-        Jedis jedis = new Jedis(hostAndPort);
-        return jedis;
+    public Optional<AccountValuesImpl> findById(String s) {
+        return Optional.empty();
     }
+
 
     @Override
-    public void disconnect(String user, String password) {
+    public void delete(AccountValuesImpl entity) {
 
     }
+
 }
